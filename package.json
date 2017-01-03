@@ -1,6 +1,6 @@
 {
   "name": "slack-message-archiver",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Save messages from a Slack channel to an archive.",
   "main": "index.js",
   "dependencies": {
@@ -35,9 +35,9 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/tomsherman/slack-message-archiver"
-  },  
+  },
   "homepage": "https://github.com/tomsherman/slack-message-archiver",
   "bugs": {
     "url": "https://github.com/tomsherman/slack-message-archiver/issues"
-  }  
+  }
 }

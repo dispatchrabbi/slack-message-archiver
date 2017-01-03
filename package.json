@@ -1,6 +1,6 @@
 {
   "name": "slack-message-archiver",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Save messages from a Slack channel to an archive.",
   "main": "index.js",
   "dependencies": {
@@ -11,7 +11,8 @@
     "zip-folder": "^1.0.0",
     "slack-node": "^0.1.8",
     "slackdown": "^0.1.1",
-    "xml2js": "^0.4.17"
+    "xml2js": "^0.4.17",
+	"node-emoji": "^1.4.3"
   },
   "devDependencies": {},
   "scripts": {

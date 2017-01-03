@@ -59,8 +59,8 @@
 				/* end reset */
 				
 				body {
-					padding: 25px;
-					font: normal 12px arial, sans-serif;
+					padding: 2.0em;
+					font: normal medium arial, sans-serif;
 					background-color: #f5f5f5;
 				}
 				
@@ -74,27 +74,28 @@
 				
 				h1 {
 					font-weight: bold;
-					font-size: 24px;
+					font-size: x-large;
 					padding-bottom: 5px;
 				}
 				
 				h2 {
-					font-size: 18px;
+					font-size: large;
 					font-style: italic;
 					padding-bottom: 5px;
 				}
 				
 				#wrap {
-					padding: 15px;
-					border-radius: 5px;
+					padding: 1.5em;
+					border-radius: 0.5em;
 					border: solid 3px #bbb;
-					max-width: 1000px;
+					max-width: 65em;
 					background-color: #fff;
 				}
 				
 				table {
 					border-collapse: collapse;
 					border-width: 0;
+					width: 100%;
 				}
 				
 				td {
@@ -104,8 +105,8 @@
 				
 				.user {
 					font-weight: bold;
-					font-size: 14px;
-					padding-right: 10px;
+					font-size: medium;
+					padding-right: 1.0em;
 				}
 				
 				.formatted-date {
@@ -113,12 +114,12 @@
 				}
 				
 				.user, .formatted-date {
-					padding-top: 8px;
+					padding-top: 0.8em;
 				}
 
 				.profile-image, .message {
 					border-bottom: dotted 1px #ddd;
-					padding-bottom: 8px;
+					padding-bottom: 0.8em;
 				}
 				
 				.message {
@@ -131,14 +132,14 @@
 				
 				.formatted-date {
 					color: #999;
-					font-size: 10px;
+					font-size: small;
 				}
 			</style>
 		</head>
 		<body>
 			<div id="wrap">
-				<h1>Slack: <xsl:value-of select="/history/channel" /></h1>
-				<h2>Archive of <em><xsl:value-of select="/history/from" /></em> to <em><xsl:value-of select="/history/to" /></em></h2>
+				<h1>Slack archive of #<xsl:value-of select="/history/channel" /></h1>
+				<h2><em><xsl:value-of select="/history/from" /></em> to <em><xsl:value-of select="/history/to" /></em></h2>
 				<table>
 					<xsl:apply-templates />			
 				</table>

@@ -2,6 +2,7 @@
 
 // requirements
 
+	const emoji = require('node-emoji')
 	const execSync = require('child_process').execSync;
 	const fs = require('fs-extra');	
 	const moment = require('moment');
@@ -292,6 +293,9 @@
 			// convert from Slack-style markup to HTML, e.g. _foo_ to <em>foo</em>
 			message.text = slackdown.parse(message.text);			
 		
+			// add emojis
+			message.text = emoji.emojify(message.text);
+		
 			writeObj.history.messages.push({
 				message: message
 			});
@@ -303,7 +307,8 @@
 		
 		var builder = new xml2js.Builder({
 			cdata: true,
-			headless: true
+			headless: true,
+			allowSurrogateChars: true
 		});
 		var xml = builder.buildObject(writeObj);			
 		

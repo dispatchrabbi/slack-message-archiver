@@ -1,14 +1,16 @@
 'use strict'
 
 // requirements
+
 	const execSync = require('child_process').execSync;
-	const fs = require('fs-extra');
-	const json2xml = require('json2xml');
+	const fs = require('fs-extra');	
 	const moment = require('moment');
 	const os = require('os');
 	const path = require('path');
 	const request = require('request');
 	const Slack = require('slack-node');
+	const slackdown = require('slackdown');
+	const xml2js = require('xml2js');	
 	const zipFolder = require('zip-folder');
 
 // defaults	
@@ -263,7 +265,7 @@
 			
 			user2image[users[user].name] = users[user].image;
 		}
-
+		
 		history.forEach(function(message) {
 			// replace user id with user name
 			// working around a limitation of the slack-history-export module
@@ -285,7 +287,10 @@
 				message.file_label = matches[1];
 				message.text = message.text.replace(r, '') + ' ';
 				writeObj.history.fileCount += 1;
-			}
+			}	
+		
+			// convert from Slack-style markup to HTML, e.g. _foo_ to <em>foo</em>
+			message.text = slackdown.parse(message.text);			
 		
 			writeObj.history.messages.push({
 				message: message
@@ -294,8 +299,16 @@
 						
 		// create xml file with reference to stylesheet
 		var xmlFilePath = path.normalize(options.tmpDir + "/" +  options.filename + ".xml");
-		fs.writeFileSync(xmlFilePath, '<?xml version="1.0" encoding="UTF-8" ?><?xml-stylesheet type="text/xsl" href="' + options.filesSubdirName + '/' + options.xsl + '" ?>' + json2xml(writeObj));
 		
+		
+		var builder = new xml2js.Builder({
+			cdata: true,
+			headless: true
+		});
+		var xml = builder.buildObject(writeObj);			
+		
+		fs.writeFileSync(xmlFilePath, '<?xml version="1.0" encoding="UTF-8" ?><?xml-stylesheet type="text/xsl" href="' + options.filesSubdirName + '/' + options.xsl + '" ?>' + xml);		
+				
 		// copy stylesheet into temp folder
 		fs.copySync(path.normalize(__dirname + '/' + options.xsl), path.normalize(options.filesSubdir + '/' + options.xsl));	
 	

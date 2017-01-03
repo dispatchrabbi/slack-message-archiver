@@ -64,6 +64,14 @@
 					background-color: #f5f5f5;
 				}
 				
+				em {
+					font-style: italic;
+				}
+				
+				strong {
+					font-style: bold;
+				}
+				
 				h1 {
 					font-weight: bold;
 					font-size: 24px;
@@ -155,7 +163,7 @@
 	<tr>
 		<td class="profile-image"><img src="{$profileImage}" width="32" height="32" alt="" /></td>
 		<td class="message">
-			<xsl:value-of select="text" />
+			<xsl:value-of select="text" disable-output-escaping="yes" />
 			<xsl:if test="file_path">							
 				<a href="{$filePath}"><xsl:value-of select="file_label" /></a>
 			</xsl:if>

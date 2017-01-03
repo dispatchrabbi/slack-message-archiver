@@ -109,6 +109,9 @@
 		
 		if (options.logToConsole) console.log('found ' + filteredHistory.length + ' messages in specified date range');
 		
+		// reverse - display oldest to newest
+		filteredHistory.reverse();
+		
 		processFiles(filteredHistory, options);
 	};
 
@@ -211,7 +214,7 @@
 		  }
 		};
 	
-		request(reqOptions).pipe(fs.createWriteStream(options.filesDir + file.id + '.' + file.filetype)).on('close', function() {
+		request(reqOptions).pipe(fs.createWriteStream(path.join(options.filesDir, file.id + '.' + file.filetype))).on('close', function() {
 			callback();
 		});	
 	};
@@ -261,29 +264,31 @@
 			user2image[users[user].name] = users[user].image;
 		}
 
-		history.forEach(function(m) {
-			if (m.type === "message" && /<@[A-Z0-9]+>/.test(m.text)) {
+		history.forEach(function(message) {
+			// replace user id with user name
+			// working around a limitation of the slack-history-export module
+			if (message.type === "message" && /<@[A-Z0-9]+>/.test(message.text)) {
 				userId2NameSwaps.forEach(function(swap) {
-					m.text = m.text.replace(swap.regex, swap.username);
+					message.text = message.text.replace(swap.regex, swap.username);
 				});
 			}		
 		
-			m.profile_image = user2image[m.user];
-			m.formatted_date = moment(1000*m.ts).format('MMMM Do YYYY, h:mm a');
+			message.profile_image = user2image[message.user];
+			message.formatted_date = moment(1000*message.ts).format('MMMM Do YYYY, h:mm a');
 			
-			//  <@U07DYET08|swift2.0> uploaded a file: <https://irclove.slack.com/files/swift2.0/F2A7BEMN2/pasted_image_at_2016_09_09_07_04_pm.png|You do know he's suspended all season right?> 
-			if (m.file) {
-				m.text = m.text.replace(/^<@[A-Z0-9]+\|([^>]+)>/, '@$1');
+			//  <@U07DYET08|swift2.0> uploaded a file: <https://irclove.slack.com/files/swift2.0/F2A7BEMN2/pasted_image_at_2016_09_09_07_04_pmessage.png|You do know he's suspended all season right?> 
+			if (message.file) {
+				message.text = message.text.replace(/^<@[A-Z0-9]+\|([^>]+)>/, '@$1');
 				var r = /<https:\/\/[^|]+\|([^>]+)>/i;
-				var matches = m.text.match(r);
-				m.file_path = options.filesSubdirName + '/files/' + m.file.id + '.' + m.file.filetype;
-				m.file_label = matches[1];
-				m.text = m.text.replace(r, '') + ' ';
+				var matches = message.text.match(r);
+				message.file_path = options.filesSubdirName + '/files/' + message.file.id + '.' + message.file.filetype;
+				message.file_label = matches[1];
+				message.text = message.text.replace(r, '') + ' ';
 				writeObj.history.fileCount += 1;
 			}
 		
 			writeObj.history.messages.push({
-				message: m
+				message: message
 			});
 		});
 						

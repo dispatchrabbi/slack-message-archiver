@@ -147,7 +147,7 @@
   
   <xsl:template match="messages/message">
 	<xsl:param name="profileImage" select="profile_image"/>
-	<xsl:param name="attachmentPath" select="attachment_path"/>	
+	<xsl:param name="filePath" select="file_path"/>	
     <tr>
 		<td class="user"><xsl:value-of select="user" /></td>
 		<td class="formatted-date"><xsl:value-of select="formatted_date" /></td>
@@ -156,8 +156,8 @@
 		<td class="profile-image"><img src="{$profileImage}" width="32" height="32" alt="" /></td>
 		<td class="message">
 			<xsl:value-of select="text" />
-			<xsl:if test="attachment_path">							
-				<a href="{$attachmentPath}"><xsl:value-of select="attachment_label" /></a>
+			<xsl:if test="file_path">							
+				<a href="{$filePath}"><xsl:value-of select="file_label" /></a>
 			</xsl:if>
 		
 		</td>

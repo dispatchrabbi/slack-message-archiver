@@ -79,7 +79,7 @@ If successful, the supplied callback function is provided an object literal with
   
 ## Contributing
 
-Fork and submit pull requests. This code can be improved! GitHub repo TBD
+Fork and submit pull requests. This code can be improved! GitHub repo: https://github.com/tomsherman/slack-message-archiver
 
 ## Issues/Features requests
 

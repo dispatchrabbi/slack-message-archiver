@@ -31,5 +31,13 @@
     "email": "tom@tomsherman.com",
     "url": "http://tomsherman.com"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tomsherman/slack-message-archiver"
+  },  
+  "homepage": "https://github.com/tomsherman/slack-message-archiver",
+  "bugs": {
+    "url": "https://github.com/tomsherman/slack-message-archiver/issues"
+  }  
 }

@@ -12,7 +12,7 @@ npm install slack-message-archiver
 ## Usage  
   
 ```js
-const archiver = require('slack-message-archiver');
+var archiver = require('slack-message-archiver');
 
 archiver.save(token, channel, [options], [callbackFunc]);
 ```  
@@ -65,7 +65,8 @@ archiver.save(token, channel, [options], [callbackFunc]);
 If successful, the supplied callback function is provided an object literal with information about the result of the archive process. Example:
 
 ```js
-{ channel: 'general',
+{ 
+  channel: 'general',
   from: 'Thursday, September 15th 2016, 12:00 am',
   to: 'Saturday, October 1st 2016, 12:00 am',
   writeFolder: 'C:\\somePath',
@@ -83,4 +84,4 @@ Fork and submit pull requests. This code can be improved! GitHub repo: https://g
 
 ## Issues/Features requests
 
-Open issue here: TBD
+Open issue here: https://github.com/tomsherman/slack-message-archiver/issues

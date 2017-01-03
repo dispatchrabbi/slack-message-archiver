@@ -77,6 +77,15 @@ If successful, the supplied callback function is provided an object literal with
   archiveFile: 'archive_general__20160915-20161001.zip'
 }
 ```
+
+## Note about Google Chrome
+
+Chrome does not allow XSL styling of local XML files. See: http://stackoverflow.com/questions/2981524/how-can-i-make-xslt-work-in-chrome
+
+Workarounds:
+
+  1. Use another browser (IE and FF work fine)
+  2. Upload the generated archive to a web host
   
 ## Contributing
 
